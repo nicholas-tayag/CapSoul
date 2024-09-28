@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { addTimeCapsule } from './capsuleServices';
 
-const CapsuleForm = ({ refreshCapsules, onSubmit }) => {
+const CapsuleForm = ({ refreshCapsules, onSubmit, onCancel }) => {
   const [capsuleData, setCapsuleData] = useState({
     title: '',
     description: '',
@@ -44,30 +44,43 @@ const CapsuleForm = ({ refreshCapsules, onSubmit }) => {
         value={capsuleData.releaseDate} 
         className="w-full px-2 py-1 border rounded mb-4" 
       />
+      
       {/* Image Upload */}
       <label className="block mb-2">Upload Images:</label>
-        <input
-          type="file"
-          accept="image/*"
-          multiple
-          className="mb-4"
-        />
+      <input
+        type="file"
+        accept="image/*"
+        multiple
+        className="mb-4"
+      />
 
       {/* Video Upload */}
       <label className="block mb-2">Upload Videos:</label>
-        <input
-          type="file"
-          accept="video/*"
-          multiple
-          className="mb-4"
-        />
-        <div></div>
-      <button type="submit" className="mt-4 mb-8 px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition">
-        Create Capsule
-      </button>
+      <input
+        type="file"
+        accept="video/*"
+        multiple
+        className="mb-4"
+      />
+
+      {/* Buttons Section */}
+      <div className="flex justify-end space-x-4">
+        <button 
+          type="button" 
+          onClick={onCancel}
+          className="px-6 py-2 bg-gray-500 text-white font-semibold rounded-lg shadow-md hover:bg-gray-600 transition"
+        >
+          Cancel
+        </button>
+        <button 
+          type="submit" 
+          className="px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition"
+        >
+          Create Capsule
+        </button>
+      </div>
     </form>
   );
 };
 
 export default CapsuleForm;
-
