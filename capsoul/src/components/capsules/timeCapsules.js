@@ -1,17 +1,43 @@
 import { db } from '../../firebase/firebase'; // Adjust the path to point to firebase.js
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from "firebase/firestore";
 
-// Define the function
-export const addTimeCapsule = async () => {
-    try {
-      const docRef = await addDoc(collection(db, "timeCapsules"), {
-        title: "My First Time Capsule",
-        description: "This is a test capsule.",
-        releaseDate: new Date("2025-01-01"), // Example release date
-        createdBy: "userId123", // This should be replaced with the actual user ID
-      });
-      console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
-  };
+const addTimeCapsule = async (timeCapsule) => {
+  try {
+    const docRef = await addDoc(collection(db, "timeCapsules"), {
+      ...timeCapsule,
+      createdAt: new Date(),
+    });
+    return docRef.id;
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+};
+
+const fetchTimeCapsules = async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, "timeCapsules"));
+    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  } catch (e) {
+    console.error("Error fetching documents: ", e);
+  }
+};
+
+const updateTimeCapsule = async (id, updatedData) => {
+  try {
+    const docRef = doc(db, "timeCapsules", id);
+    await updateDoc(docRef, updatedData);
+  } catch (e) {
+    console.error("Error updating document: ", e);
+  }
+};
+
+const deleteTimeCapsule = async (id) => {
+  try {
+    const docRef = doc(db, "timeCapsules", id);
+    await deleteDoc(docRef);
+  } catch (e) {
+    console.error("Error deleting document: ", e);
+  }
+};
+
+export { addTimeCapsule, fetchTimeCapsules, updateTimeCapsule, deleteTimeCapsule };
