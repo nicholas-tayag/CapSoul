@@ -5,9 +5,6 @@ import LandingPage from './pages/LandingPage';
 import ProfilePage from './pages/ProfilePage';
 import CapsulePage from './pages/CapsulePage';
 
-import { db } from './firebase/firebase';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
-
 
 function App() {
   return (
