@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header/Header';
-import CapsuleForm from '../components/capsules/capsuleCreate';
+import CapsuleForm from '../components/capsules/capsuleForm';
 import CapsuleList from '../components/capsules/capsuleList';
 import { fetchTimeCapsules, deleteTimeCapsule } from '../components/capsules/capsuleServices';
 
@@ -56,21 +56,19 @@ const CapsulePage = () => {
             onDeselect={handleDeselectCapsule}
           />
           
-          {!selectedCapsule && (
-            <button
-              onClick={toggleForm}
-              className="mt-4 mb-4 px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition"
-            >
-              {showForm ? "Cancel" : "Create New Capsule"}
-            </button>
+          <button
+            onClick={toggleForm}
+            className="mt-14 mb-10 px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition"
+          >
+            {showForm ? "Cancel" : "Create New Capsule"}
+          </button>
+
+          {showForm && (
+            <CapsuleForm 
+              refreshCapsules={handleFetchCapsules} 
+              onSubmit={toggleForm} // Close the form after submission
+            />
           )}
-
-          {showForm && <CapsuleForm refreshCapsules={handleFetchCapsules} />}
-
-          
-          {/* <Link to="/profile" className="block px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition mb-4">
-            Back to Profile
-          </Link> */}
 
           <Link to="/" className="block px-6 py-3 bg-gray-200 text-gray-800 font-semibold rounded-lg shadow-md hover:bg-gray-300 transition">
             Back to Home
