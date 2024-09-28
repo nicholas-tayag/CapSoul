@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { addTimeCapsule } from './timeCapsules';
+import { addTimeCapsule } from './capsuleServices';
 
 const CapsuleForm = ({ refreshCapsules }) => {
   const [capsuleData, setCapsuleData] = useState({
