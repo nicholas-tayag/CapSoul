@@ -4,6 +4,11 @@ import Header from '../components/Header/Header';
 import CapsuleForm from '../components/capsules/capsuleForm';
 import CapsuleList from '../components/capsules/capsuleList';
 import { fetchTimeCapsules, deleteTimeCapsule } from '../components/capsules/capsuleServices';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box'; // To arrange buttons horizontally
 
 const CapsulePage = () => {
   const [capsules, setCapsules] = useState([]);
@@ -56,19 +61,31 @@ const CapsulePage = () => {
             onDeselect={handleDeselectCapsule}
           />
           
-          <button
+          <Button
+            variant="contained"
+            color="primary"
             onClick={toggleForm}
-            className="mt-14 mb-10 px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition"
+            className="mt-14 mb-10"
           >
             {showForm ? "Cancel" : "Create New Capsule"}
-          </button>
+          </Button>
 
-          {showForm && (
-            <CapsuleForm 
-              refreshCapsules={handleFetchCapsules} 
-              onSubmit={toggleForm} // Close the form after submission
-            />
-          )}
+          {/* Dialog for the form */}
+          <Dialog
+            open={showForm}
+            onClose={toggleForm}
+            fullWidth
+            maxWidth="md"
+          >
+            <DialogTitle>Create New Time Capsule</DialogTitle>
+            <DialogContent>
+              <CapsuleForm 
+                refreshCapsules={handleFetchCapsules} 
+                onSubmit={toggleForm} // Close the form after submission
+                onCancel={toggleForm} // Close the form when cancel is clicked
+              />
+            </DialogContent>
+          </Dialog>
 
           <Link to="/" className="block px-6 py-3 bg-gray-200 text-gray-800 font-semibold rounded-lg shadow-md hover:bg-gray-300 transition">
             Back to Home
