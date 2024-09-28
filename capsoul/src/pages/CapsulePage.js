@@ -37,7 +37,9 @@ const CapsulePage = () => {
         <div className="bg-white p-8 rounded-lg shadow-lg text-center w-3/4">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">Your Time Capsules</h1>
           <p className="text-gray-600 mb-8">View, create, and manage your time capsules.</p>
-
+          <CapsuleList capsules={capsules} onSelect={handleSelectCapsule} />
+          {selectedCapsule && <CapsuleDetail capsule={selectedCapsule} refreshCapsules={handleFetchCapsules} />}
+          
           <button
             onClick={toggleForm}
             className="mb-4 px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition"
@@ -47,8 +49,7 @@ const CapsulePage = () => {
 
           {showForm && <CapsuleForm refreshCapsules={handleFetchCapsules} />}
 
-          <CapsuleList capsules={capsules} onSelect={handleSelectCapsule} />
-          {selectedCapsule && <CapsuleDetail capsule={selectedCapsule} refreshCapsules={handleFetchCapsules} />}
+
 
           <Link to="/profile" className="block px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition mb-4">
             Back to Profile
