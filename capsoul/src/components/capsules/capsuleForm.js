@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { addTimeCapsule } from './timeCapsules';
+import { addTimeCapsule } from './capsuleServices';
 
-const CapsuleForm = ({ refreshCapsules }) => {
+const CapsuleForm = ({ refreshCapsules, onSubmit }) => {
   const [capsuleData, setCapsuleData] = useState({
     title: '',
     description: '',
     releaseDate: '',
-    mediaFiles: [],
+    images: [],
+    videos: [],
   });
 
   const handleChange = (e) => {
@@ -17,14 +18,51 @@ const CapsuleForm = ({ refreshCapsules }) => {
     e.preventDefault();
     await addTimeCapsule(capsuleData);
     refreshCapsules(); // Refresh the list after adding a new capsule
+    onSubmit();  // Call the onSubmit function to close the form
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input name="title" onChange={handleChange} placeholder="Title" value={capsuleData.title} className="w-full px-2 py-1 border rounded mb-4" />
-      <textarea name="description" onChange={handleChange} placeholder="Description" value={capsuleData.description} className="w-full px-2 py-1 border rounded mb-4"></textarea>
-      <input type="date" name="releaseDate" onChange={handleChange} value={capsuleData.releaseDate} className="w-full px-2 py-1 border rounded mb-4" />
-      <button type="submit" className="px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition">
+      <input 
+        name="title" 
+        onChange={handleChange} 
+        placeholder="Title" 
+        value={capsuleData.title} 
+        className="w-full px-2 py-1 border rounded mb-4" 
+      />
+      <textarea 
+        name="description" 
+        onChange={handleChange} 
+        placeholder="Description" 
+        value={capsuleData.description} 
+        className="w-full px-2 py-1 border rounded mb-4">
+      </textarea>
+      <input 
+        type="datetime-local" 
+        name="releaseDate" 
+        onChange={handleChange} 
+        value={capsuleData.releaseDate} 
+        className="w-full px-2 py-1 border rounded mb-4" 
+      />
+      {/* Image Upload */}
+      <label className="block mb-2">Upload Images:</label>
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+          className="mb-4"
+        />
+
+      {/* Video Upload */}
+      <label className="block mb-2">Upload Videos:</label>
+        <input
+          type="file"
+          accept="video/*"
+          multiple
+          className="mb-4"
+        />
+        <div></div>
+      <button type="submit" className="mt-4 mb-8 px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition">
         Create Capsule
       </button>
     </form>
@@ -32,3 +70,4 @@ const CapsuleForm = ({ refreshCapsules }) => {
 };
 
 export default CapsuleForm;
+
