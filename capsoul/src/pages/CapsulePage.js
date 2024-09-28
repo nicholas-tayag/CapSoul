@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header/Header';
-import CapsuleForm from '../components/capsules/capsuleForm'
+import CapsuleForm from '../components/capsules/capsuleForm';
 import CapsuleList from '../components/capsules/capsuleList';
 import CapsuleDetail from '../components/capsules/capsuleDetails';
 import { fetchTimeCapsules } from '../components/capsules/capsuleServices';
@@ -11,21 +11,25 @@ const CapsulePage = () => {
   const [selectedCapsule, setSelectedCapsule] = useState(null);
   const [showForm, setShowForm] = useState(false);
 
+  // Fetch capsules on component mount
   useEffect(() => {
     handleFetchCapsules();
   }, []);
 
+  // Function to fetch capsules
   const handleFetchCapsules = async () => {
     const fetchedCapsules = await fetchTimeCapsules();
     setCapsules(fetchedCapsules);
-    console.log("Fetched Capsules:", fetchedCapsules);
+    console.log('Fetched Capsules:', fetchedCapsules);
   };
 
+  // Handle capsule selection
   const handleSelectCapsule = (capsule) => {
     setSelectedCapsule(capsule);
-    setShowForm(false);
+    setShowForm(false); // Hide form when a capsule is selected
   };
 
+  // Toggle the form visibility
   const toggleForm = () => {
     setShowForm(!showForm);
   };
