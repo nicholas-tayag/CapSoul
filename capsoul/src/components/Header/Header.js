@@ -1,17 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <header className="bg-custom-dark-blue text-white p-6">
       <nav className="flex justify-between items-center">
         <div className="text-2xl font-bold">
-          <h1>CapSoul</h1>
+          <Link to="/" className="hover:underline">
+            <h1>CapSoul</h1>
+          </Link>
         </div>
         <ul className="flex space-x-8">
-          <li><a href="#home" className="hover:underline">Home</a></li>
-          <li><a href="#about" className="hover:underline">About</a></li>
-          <li><a href="#services" className="hover:underline">Services</a></li>
-          <li><a href="#contact" className="hover:underline">Contact</a></li>
+          <li><Link to="/" className="hover:underline">Home</Link></li>
+          <li><Link to="/about" className="hover:underline">About</Link></li>
+          <li><Link to="/services" className="hover:underline">Services</Link></li>
+          <li><Link to="/contact" className="hover:underline">Contact</Link></li>
         </ul>
       </nav>
     </header>
