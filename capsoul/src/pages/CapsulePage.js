@@ -7,8 +7,6 @@ import { uploadFiles, addTimeCapsule, fetchTimeCapsules, deleteTimeCapsule } fro
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import Button from '@mui/material/Button';
-
 
 const CapsulePage = () => {
   const [capsules, setCapsules] = useState([]);
@@ -78,10 +76,12 @@ const CapsulePage = () => {
         setShowForm(false); // Close the form
         console.log('Navigating to rocket animation page...');
         
+        // Calculate the time remaining until the release date
         const currentTime = new Date();  // Get the current time
-        const releaseTime = new Date(releaseDate);  // Convert releaseDate to Date object
+        const releaseTime = new Date(capsuleData.releaseDate);  // Convert releaseDate to Date object
         const timeRemaining = Math.floor((releaseTime - currentTime) / 1000);  // Calculate time in seconds
-        navigate('/rocket-animation', { state: { timeRemaining, releaseDate } });
+        
+        navigate('/rocket-animation', { state: { timeRemaining, releaseDate: capsuleData.releaseDate } });
     } catch (error) {
         console.error('Error creating capsule:', error);
     }
