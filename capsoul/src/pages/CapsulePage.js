@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';  // Import useNavigate for navigation
 import Header from '../components/Header/Header';
 import CapsuleForm from '../components/capsules/capsuleForm';
 import CapsuleList from '../components/capsules/capsuleList';
@@ -8,12 +7,14 @@ import { uploadFiles, addTimeCapsule, fetchTimeCapsules, deleteTimeCapsule } fro
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+
 
 const CapsulePage = () => {
   const [capsules, setCapsules] = useState([]);
   const [selectedCapsule, setSelectedCapsule] = useState(null);
   const [showForm, setShowForm] = useState(false);
-  const navigate = useNavigate();
+  const navigate = useNavigate();  // Initialize navigation
 
   useEffect(() => {
     const loadCapsules = async () => {
@@ -27,7 +28,7 @@ const CapsulePage = () => {
   const handleFetchCapsules = async () => {
     const fetchedCapsules = await fetchTimeCapsules();
     setCapsules(fetchedCapsules);
-    setSelectedCapsule(null);
+    setSelectedCapsule(null); // Reset selection after fetching
   };
 
   const handleSelectCapsule = (capsule) => {
@@ -46,7 +47,7 @@ const CapsulePage = () => {
 
   const toggleForm = () => {
     setShowForm(!showForm);
-    setSelectedCapsule(null);
+    setSelectedCapsule(null);  // Deselect capsule when toggling form
   };
 
   const handleFormSubmit = async (capsuleData) => {
@@ -76,7 +77,11 @@ const CapsulePage = () => {
         handleFetchCapsules(); // Refresh the capsules list
         setShowForm(false); // Close the form
         console.log('Navigating to rocket animation page...');
-        navigate('/rocket-animation');
+        
+        const currentTime = new Date();  // Get the current time
+        const releaseTime = new Date(releaseDate);  // Convert releaseDate to Date object
+        const timeRemaining = Math.floor((releaseTime - currentTime) / 1000);  // Calculate time in seconds
+        navigate('/rocket-animation', { state: { timeRemaining, releaseDate } });
     } catch (error) {
         console.error('Error creating capsule:', error);
     }
@@ -116,7 +121,7 @@ const CapsulePage = () => {
             <DialogContent>
               <CapsuleForm 
                 refreshCapsules={handleFetchCapsules} 
-                onSubmit={handleFormSubmit}
+                onSubmit={handleFormSubmit}  // Pass the date to handleFormSubmit
                 onCancel={toggleForm}
               />
             </DialogContent>

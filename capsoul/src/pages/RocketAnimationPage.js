@@ -1,12 +1,43 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import * as THREE from 'three';
+import { useLocation } from 'react-router-dom';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import rocketModel from '../assets/rocket.gltf'; // Ensure this path is correct
 import '../assets/styles/rocketAnimation.css'; 
 
 const RocketAnimationPage = () => {
-    useEffect(() => {
+  const location = useLocation();
+  const { timeRemaining: initialTimeRemaining, releaseDate } = location.state || { timeRemaining: 0, releaseDate: '' };
+
+  const [timeRemaining, setTimeRemaining] = useState(initialTimeRemaining);
+
+  useEffect(() => {
+    // If timeRemaining is greater than 0, set up the countdown
+    if (timeRemaining > 0) {
+      const timer = setInterval(() => {
+        setTimeRemaining((prevTime) => prevTime - 1);
+      }, 1000);  // Decrease by 1 second each time
+
+      // Clear the interval when timeRemaining reaches 0 or component unmounts
+      return () => clearInterval(timer);
+    }
+  }, [timeRemaining]);
+
+  // Function to convert seconds into days, hours, minutes, and seconds
+  const formatTime = (time) => {
+    const days = Math.floor(time / (3600 * 24));
+    const hours = Math.floor((time % (3600 * 24)) / 3600);
+    const minutes = Math.floor((time % 3600) / 60);
+    const seconds = Math.floor(time % 60);
+
+    return { days, hours, minutes, seconds };
+  };
+
+  // Get the formatted time values
+  const { days, hours, minutes, seconds } = formatTime(timeRemaining);
+
+  useEffect(() => {
       let scene, camera, renderer, rocket;
       let WIDTH = window.innerWidth;
       let HEIGHT = window.innerHeight;
@@ -72,8 +103,14 @@ const RocketAnimationPage = () => {
     }, []);
   
     return (
+      <div>
         <div id="rocket-animation" style={{ width: '100%', height: '100%' }}>
-          <div className="fire-wrapper">
+        <h1 className="text-5xl font-bold mb-4 mt-12 text-white">Launching Capsule into Space</h1>
+        <p className="text-3xl text-white">
+          Your Time Capsule Will Open in {days}d {hours}h {minutes}m {seconds}s. <br />
+          On {releaseDate}
+        </p>          
+        <div className="fire-wrapper">
             <img className="fire" src="https://stivs.dev/assets/rocket/fire.svg" alt="Fire" />
           </div>
           <div className="rain rain1"></div>
@@ -104,6 +141,7 @@ const RocketAnimationPage = () => {
               </button>
             </Link>
           </div>
+        </div>
         </div>
       );
     };

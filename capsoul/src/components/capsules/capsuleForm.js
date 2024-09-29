@@ -110,7 +110,7 @@ const CapsuleForm = ({ refreshCapsules, onSubmit, onCancel }) => {
       <div className="flex justify-end space-x-4">
         <button 
           type="button" 
-          onClick={onCancel}
+          onClick={onCancel} 
           className="px-6 py-2 bg-gray-500 text-white font-semibold rounded-lg shadow-md hover:bg-gray-600 transition"
         >
           Cancel
