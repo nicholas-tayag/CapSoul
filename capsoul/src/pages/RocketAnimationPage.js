@@ -49,7 +49,7 @@ const RocketAnimationPage = () => {
   
         // Create camera
         camera = new THREE.PerspectiveCamera(60, WIDTH / HEIGHT, 1, 10000);
-        camera.position.set(0, -10, 500);
+        camera.position.set(0, -50, 500);
   
         // Create renderer
         renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });

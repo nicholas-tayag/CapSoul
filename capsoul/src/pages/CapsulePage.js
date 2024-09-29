@@ -69,6 +69,16 @@ const CapsulePage = () => {
     }
 };
 
+  // For Testing Rocket Animations
+  // const handleTestAnimation = () => {
+  //   // Example: Simulate a test release time of 10 seconds remaining
+  //   const timeRemaining = 10;  // 10 seconds
+  //   const releaseDate = new Date();  // Set a dummy release date
+
+  //   // Navigate to the animation page with simulated data
+  //   navigate('/rocket-animation', { state: { timeRemaining, releaseDate: releaseDate.toISOString() } });
+  // };
+
   return (
     <div style={{ position: 'relative', overflow: 'hidden' }}>
       <StarField /> {/* Star Field in the background */}
@@ -95,6 +105,14 @@ const CapsulePage = () => {
           >
             {showForm ? "Cancel" : "Create New Capsule"}
           </button>
+
+           {/* Add a button for testing the animation
+           <button
+            onClick={handleTestAnimation}
+            className="mt-4 px-6 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition"
+          >
+            Test Rocket Animation
+          </button> */}
 
           {/* Dialog for the form */}
           <Dialog
