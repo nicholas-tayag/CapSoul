@@ -8,11 +8,20 @@ const CapsuleForm = ({ onSubmit, onCancel }) => {
     releaseDate: '',
     images: [],
     videos: [],
+    email: '',
+    location: '',
+    timeInFlight: {
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0
+    }
   });
 
   const [imageFiles, setImageFiles] = useState([]);
   const [videoFiles, setVideoFiles] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLocating, setIsLocating] = useState(false);
 
   const handleChange = (e) => {
     setCapsuleData({ ...capsuleData, [e.target.name]: e.target.value });
@@ -27,7 +36,55 @@ const CapsuleForm = ({ onSubmit, onCancel }) => {
     }
   };
 
-  //update
+  const handleLocationClick = () => {
+    const useCurrentLocation = window.confirm(
+      'Do you want to use your current location?'
+    );
+
+    if (useCurrentLocation) {
+      setIsLocating(true);
+
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            setCapsuleData({
+              ...capsuleData,
+              location: `Latitude: ${latitude}, Longitude: ${longitude}`,
+            });
+            setIsLocating(false);
+          },
+          (error) => {
+            console.error('Error fetching location:', error);
+            setIsLocating(false);
+          }
+        );
+      } else {
+        alert('Geolocation is not supported by this browser.');
+        setIsLocating(false);
+      }
+    }
+  };
+
+  const calculateTimeInFlight = () => {
+    const currentTime = new Date();
+    const releaseTime = new Date(capsuleData.releaseDate);
+
+    // Calculate the difference in milliseconds
+    const timeDifference = releaseTime - currentTime;
+
+    if (timeDifference <= 0) {
+      return { days: 0, hours: 0, minutes: 0, seconds: 0 }; // Time already passed or invalid
+    }
+
+    // Convert milliseconds to days, hours, minutes, and seconds
+    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+    return { days, hours, minutes, seconds };
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,10 +99,14 @@ const CapsuleForm = ({ onSubmit, onCancel }) => {
       const imageUrls = await uploadFiles(imageFiles, 'images');
       const videoUrls = await uploadFiles(videoFiles, 'videos');
 
+      // Calculate timeInFlight before submitting
+      const timeInFlight = calculateTimeInFlight();
+
       const newCapsuleData = {
         ...capsuleData,
         images: imageUrls,
         videos: videoUrls,
+        timeInFlight, // Set the calculated timeInFlight
       };
 
       onSubmit(newCapsuleData); // Pass the data back up to the parent component
@@ -97,6 +158,30 @@ const CapsuleForm = ({ onSubmit, onCancel }) => {
         onChange={(e) => handleFileChange(e, 'video')}
         className="mb-4"
       />
+
+      <input 
+        name="email" 
+        onChange={handleChange} 
+        placeholder="Add an email for future notifications" 
+        value={capsuleData.email} 
+        className="w-full px-2 py-1 border rounded mb-4" 
+      />
+
+      {/* Location Input */}
+      <div className="mb-4">
+        <input
+          type="text"
+          name="location"
+          placeholder="Click to set location"
+          value={capsuleData.location}
+          onClick={handleLocationClick}
+          onChange={(e) =>
+            setCapsuleData({ ...capsuleData, location: e.target.value })
+          }
+          className="w-full px-2 py-1 border rounded"
+        />
+        {isLocating && <p className="text-sm text-gray-500">Locating...</p>}
+      </div>
 
       <div className="flex justify-end space-x-4">
         <button 
