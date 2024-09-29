@@ -15,7 +15,7 @@ const CapsulePage = () => {
   const [capsules, setCapsules] = useState([]);
   const [selectedCapsule, setSelectedCapsule] = useState(null);
   const [showForm, setShowForm] = useState(false);
-  const navigate = useNavigate(); // Initialize the useNavigate hook
+  const navigate = useNavigate();
 
   useEffect(() => {
     handleFetchCapsules();
@@ -24,8 +24,7 @@ const CapsulePage = () => {
   const handleFetchCapsules = async () => {
     const fetchedCapsules = await fetchTimeCapsules();
     setCapsules(fetchedCapsules);
-    setSelectedCapsule(null); // Reset selection after fetching
-    console.log('Fetched Capsules:', fetchedCapsules);
+    setSelectedCapsule(null);
   };
 
   const handleSelectCapsule = (capsule) => {
@@ -44,12 +43,12 @@ const CapsulePage = () => {
 
   const toggleForm = () => {
     setShowForm(!showForm);
-    setSelectedCapsule(null); // Deselect capsule when toggling form
+    setSelectedCapsule(null);
   };
 
   const handleFormSubmit = () => {
-    toggleForm(); // Close the form
-    navigate('/rocket-animation'); // Redirect to the rocket animation page
+    toggleForm();
+    navigate('/rocket-animation');
   };
 
   return (
@@ -68,21 +67,12 @@ const CapsulePage = () => {
             onDeselect={handleDeselectCapsule}
           />
  
-          <Button
-            variant="contained"
-            color="primary"
+          <button
             onClick={toggleForm}
-            className="mt-14 mb-10"
+            className="mt-10 px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition"
           >
             {showForm ? "Cancel" : "Create New Capsule"}
-          </Button>
-
-          {showForm && (
-            <CapsuleForm 
-              refreshCapsules={handleFetchCapsules} 
-              onSubmit={handleFormSubmit} // Trigger form submission and redirect to animation
-            />
-          )}
+          </button>
 
           {/* Dialog for the form */}
           <Dialog
@@ -95,21 +85,13 @@ const CapsulePage = () => {
             <DialogContent>
               <CapsuleForm 
                 refreshCapsules={handleFetchCapsules} 
-                onSubmit={toggleForm} // Close the form after submission
-                onCancel={toggleForm} // Close the form when cancel is clicked
+                onSubmit={handleFormSubmit}
+                onCancel={toggleForm}
               />
             </DialogContent>
           </Dialog>
 
-          {/* Test Animation Button */}
-          <button
-            onClick={handleFormSubmit}
-            className="mt-4 px-6 py-2 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 transition"
-          >
-            Test Rocket Animation
-          </button>
-
-          <Link to="/" className="block px-6 py-3 bg-gray-200 text-gray-800 font-semibold rounded-lg shadow-md hover:bg-gray-300 transition">
+          <Link to="/" className="mt-6 block px-6 py-3 bg-gray-200 text-gray-800 font-semibold rounded-lg shadow-md hover:bg-gray-300 transition">
             Back to Home
           </Link>
         </div>
