@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import StarField from '../components/StarField';  // Import StarField
 import CapsuleAnimation from '../components/capsules/capsuleAnimation';
+import './CapsuleDetailPage.css'; // Add styles here
 
 const CapsuleDetailPage = () => {
   const { id } = useParams();
@@ -9,8 +10,8 @@ const CapsuleDetailPage = () => {
   const location = useLocation();
   const capsule = location.state?.capsule; // Get capsule from state
 
-  const [selectedImage, setSelectedImage] = useState(null); // State to track selected image for popup
-  const [animationComplete, setAnimationComplete] = useState(false); // Track animation completion
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [animationComplete, setAnimationComplete] = useState(false);
 
   if (!capsule) {
     return <div>Capsule not found</div>;
@@ -32,105 +33,81 @@ const CapsuleDetailPage = () => {
       hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''}` : '',
       minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''}` : '',
       seconds > 0 ? `${seconds} second${seconds > 1 ? 's' : ''}` : '',
-    ].filter(Boolean); // Remove empty values
-
-    if (minutes > 0 && seconds > 0) {
-      timeParts.splice(timeParts.length - 1, 0, 'and');
-    }
+    ].filter(Boolean);
 
     return timeParts.join(' ') || '0 seconds';
   };
 
   return (
-    <div style={{ position: 'relative', overflow: 'hidden', minHeight: '100vh' }}>
-      {/* Star Field Background */}
-      <StarField />
+    <div className="capsule-detail-page">
+      <StarField /> {/* Starfield Background */}
 
-      {/* Capsule Animation */}
       {!animationComplete && (
         <CapsuleAnimation
-        onAnimationComplete={() => setAnimationComplete(true)}
-        createdAt={capsule.createdAt} // Pass the createdAt date to the animation
-      />
+          onAnimationComplete={() => setAnimationComplete(true)}
+          createdAt={capsule.createdAt}
+        />
       )}
 
-      {/* Display Content after animation completes */}
       {animationComplete && (
-        <div className="relative container mx-auto mt-8 z-10">
-          {/* Title */}
-          <h1 className="text-3xl font-bold text-white">{capsule.title}</h1>
-          <p className="mt-4 text-white">{capsule.description}</p>
-          <p className="mt-4 text-white">
+        <div className="content-container">
+          <h1 className="capsule-title">{capsule.title}</h1>
+          <p className="capsule-description">{capsule.description}</p>
+          <p className="capsule-time-in-flight">
             This capsule was in flight for {formatTimeInFlight(capsule.timeInFlight)}
           </p>
 
-          {/* Display images */}
-          <div className="mt-6">
-            <h3 className="text-xl font-semibold text-white">Photos</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+          <div className="media-section">
+            <h3 className="media-title">Photos</h3>
+            <div className="media-grid">
               {capsule.images && capsule.images.length > 0 ? (
                 capsule.images.map((imageUrl, index) => (
                   <div
                     key={index}
-                    className="relative w-full h-48 overflow-hidden cursor-pointer"
-                    onClick={() => openImageModal(imageUrl)} // Open image modal on click
+                    className="media-item"
+                    onClick={() => openImageModal(imageUrl)}
                   >
                     <img
                       src={imageUrl}
                       alt={`Capsule Image ${index + 1}`}
-                      className="w-full h-full rounded shadow-lg object-cover transform hover:scale-110 transition duration-300 ease-in-out"
+                      className="media-image"
                     />
                   </div>
                 ))
               ) : (
-                <p className="text-white">No images available.</p>
+                <p className="no-media-message">No images available.</p>
               )}
             </div>
           </div>
 
-          {/* Display videos */}
-          <div className="mt-6">
-            <h3 className="text-xl font-semibold text-white">Videos</h3>
-            <div className="grid grid-cols-2 gap-4 mt-4">
+          <div className="media-section">
+            <h3 className="media-title">Videos</h3>
+            <div className="media-grid">
               {capsule.videos && capsule.videos.length > 0 ? (
                 capsule.videos.map((videoUrl, index) => (
-                  <video key={index} controls className="w-full h-auto rounded">
+                  <video key={index} controls className="media-video">
                     <source src={videoUrl} type="video/mp4" />
-                    <p className="text-white">Your browser does not support the video tag.</p>
+                    <p>Your browser does not support the video tag.</p>
                   </video>
                 ))
               ) : (
-                <p className="text-white">No videos available.</p>
+                <p className="no-media-message">No videos available.</p>
               )}
             </div>
           </div>
 
-          {/* Back Button */}
           <button
             onClick={() => navigate(-1)}
-            className="px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition mt-6"
+            className="close-button"
           >
             Close Capsule
           </button>
 
-          {/* Image Modal */}
           {selectedImage && (
-            <div
-              className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50"
-              onClick={closeImageModal} // Close modal on clicking outside the image
-            >
-              <div className="relative max-w-3xl max-h-[90vh] overflow-hidden">
-                <button
-                  className="absolute top-2 right-2 text-white text-2xl"
-                  onClick={closeImageModal} // Close modal on clicking the button
-                >
-                  &times;
-                </button>
-                <img
-                  src={selectedImage}
-                  alt="Full-size view"
-                  className="w-full h-auto max-h-[90vh] object-contain" // Ensure image fits the viewport
-                />
+            <div className="modal-background" onClick={closeImageModal}>
+              <div className="modal-content">
+                <button className="close-modal">&times;</button>
+                <img src={selectedImage} alt="Full-size view" className="modal-image" />
               </div>
             </div>
           )}
