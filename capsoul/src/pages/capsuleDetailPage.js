@@ -21,13 +21,31 @@ const CapsuleDetailPage = () => {
     setSelectedImage(null);
   };
 
+  const formatTimeInFlight = (timeInFlight) => {
+    const { days, hours, minutes, seconds } = timeInFlight;
 
-  //update
+    const timeParts = [
+      days > 0 ? `${days} day${days > 1 ? 's' : ''}` : '',
+      hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''}` : '',
+      minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''}` : '',
+      seconds > 0 ? `${seconds} second${seconds > 1 ? 's' : ''}` : '',
+    ].filter(Boolean); // Remove empty values
+
+    if (minutes > 0 && seconds > 0) {
+      timeParts.splice(timeParts.length - 1, 0, 'and');
+    }
+
+    return timeParts.join(' ') || '0 seconds';
+  };
+
   return (
     <div className="container mx-auto mt-8">
       {/* Title */}
       <h1 className="text-3xl font-bold text-white">{capsule.title}</h1>
       <p className="mt-4 text-white">{capsule.description}</p>
+      <p className="mt-4 text-white">
+        This capsule was in flight for {formatTimeInFlight(capsule.timeInFlight)}
+      </p>
 
       {/* Display images */}
       <div className="mt-6">
@@ -69,7 +87,6 @@ const CapsuleDetailPage = () => {
           )}
         </div>
       </div>
-      
 
       {/* Back Button */}
       <button
