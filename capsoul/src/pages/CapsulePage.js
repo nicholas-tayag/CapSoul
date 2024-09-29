@@ -52,26 +52,7 @@ const CapsulePage = () => {
     try {
         console.log('Submitting capsule form...', capsuleData);
 
-        // Ensure images and videos are arrays (even if empty)
-        const images = capsuleData.images || []; // Use empty array if undefined
-        const videos = capsuleData.videos || []; // Use empty array if undefined
-
-        // Upload images and videos
-        const imageUrls = await uploadFiles(images, 'images');
-        const videoUrls = await uploadFiles(videos, 'videos');
-
-        console.log('Uploads complete:', { imageUrls, videoUrls });
-
-        // Create the capsule with uploaded file URLs
-        const newCapsule = {
-            ...capsuleData,
-            images: imageUrls,
-            videos: videoUrls,
-        };
-
-        console.log('Adding new capsule:', newCapsule);
-
-        await addTimeCapsule(newCapsule);
+        await addTimeCapsule(capsuleData);
         handleFetchCapsules(); // Refresh the capsules list
         setShowForm(false); // Close the form
         console.log('Navigating to rocket animation page...');
