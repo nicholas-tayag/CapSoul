@@ -5,7 +5,7 @@ import LandingPage from './pages/LandingPage';
 import ProfilePage from './pages/ProfilePage';
 import CapsulePage from './pages/CapsulePage';
 import RocketAnimationPage from './pages/RocketAnimationPage';
-import CapsuleDetailPage from './components/capsules/capsuleDetailPage';  // Import CapsuleDetailPage
+import CapsuleDetailPage from './pages/capsuleDetailPage';  // Import CapsuleDetailPage
 
 function App() {
   const [capsules, setCapsules] = React.useState([]);  // Fetch your capsules in CapsulePage
