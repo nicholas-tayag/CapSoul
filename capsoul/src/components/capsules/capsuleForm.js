@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { addTimeCapsule, uploadFiles } from './capsuleServices';
+import { uploadFiles } from './capsuleServices';
 
-const CapsuleForm = ({ refreshCapsules, onSubmit, onCancel }) => {
+const CapsuleForm = ({ onSubmit, onCancel }) => {
   const [capsuleData, setCapsuleData] = useState({
     title: '',
     description: '',
@@ -31,12 +31,10 @@ const CapsuleForm = ({ refreshCapsules, onSubmit, onCancel }) => {
     e.preventDefault();
 
     if (isSubmitting) {
-      console.log('Already submitting, ignoring further submissions.');
       return;
     }
 
     setIsSubmitting(true);
-    console.log('Form is being submitted...');
 
     try {
       const imageUrls = await uploadFiles(imageFiles, 'images');
@@ -48,13 +46,7 @@ const CapsuleForm = ({ refreshCapsules, onSubmit, onCancel }) => {
         videos: videoUrls,
       };
 
-      console.log('Adding capsule to Firestore:', newCapsuleData);
-
-      await addTimeCapsule(newCapsuleData);
-
-      console.log('Capsule added, closing form...');
-      refreshCapsules();
-      onSubmit(newCapsuleData);
+      onSubmit(newCapsuleData); // Pass the data back up to the parent component
     } catch (error) {
       console.error('Error creating capsule:', error);
     } finally {
@@ -86,7 +78,6 @@ const CapsuleForm = ({ refreshCapsules, onSubmit, onCancel }) => {
         className="w-full px-2 py-1 border rounded mb-4" 
       />
       
-      {/* Image Upload */}
       <label className="block mb-2">Upload Images:</label>
       <input
         type="file"
@@ -96,7 +87,6 @@ const CapsuleForm = ({ refreshCapsules, onSubmit, onCancel }) => {
         className="mb-4"
       />
 
-      {/* Video Upload */}
       <label className="block mb-2">Upload Videos:</label>
       <input
         type="file"
@@ -106,11 +96,10 @@ const CapsuleForm = ({ refreshCapsules, onSubmit, onCancel }) => {
         className="mb-4"
       />
 
-      {/* Buttons Section */}
       <div className="flex justify-end space-x-4">
         <button 
           type="button" 
-          onClick={onCancel} 
+          onClick={onCancel}
           className="px-6 py-2 bg-gray-500 text-white font-semibold rounded-lg shadow-md hover:bg-gray-600 transition"
         >
           Cancel
@@ -119,7 +108,7 @@ const CapsuleForm = ({ refreshCapsules, onSubmit, onCancel }) => {
           type="submit" 
           className="px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition"
           disabled={isSubmitting}
-          >
+        >
           {isSubmitting ? 'Creating...' : 'Create Capsule'}
         </button>
       </div>
