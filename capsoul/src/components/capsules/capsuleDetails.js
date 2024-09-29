@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { deleteTimeCapsule } from './capsuleServices';
 import CountdownTimer from '../capsules/countdownTimer'; // Import CountdownTimer
-import OpenCapsuleForm from '../capsules/capsuleOpen'; // Import OpenCapsuleForm
+import CapsuleAnimation from '../components/CapsuleAnimation'; // Import CapsuleAnimation
+import PolaroidMedia from '../components/PolaroidMedia'; // Import PolaroidMedia
+import GlowingButton from '../components/GlowingButton'; // Import GlowingButton
 
 const CapsuleDetail = ({ capsule, refreshCapsules }) => {
   const [isTimerEnded, setIsTimerEnded] = useState(false);
   const [isCapsuleOpened, setIsCapsuleOpened] = useState(false);
+  const [showContents, setShowContents] = useState(false); // To show capsule contents after animation
 
   const handleDelete = async () => {
     await deleteTimeCapsule(capsule.id);
@@ -22,11 +25,16 @@ const CapsuleDetail = ({ capsule, refreshCapsules }) => {
     setIsCapsuleOpened(true);
   };
 
+  const handleAnimationComplete = () => {
+    // Show contents after animation finishes
+    setShowContents(true);
+  };
+
   return (
     <div className="mt-4">
-      <h2 className="text-2xl font-bold">{capsule.title}</h2>
-      <p>{capsule.description}</p>
-      
+      <h2 className="text-2xl font-bold text-white">{capsule.title}</h2>
+      <p className="text-white">{capsule.description}</p>
+
       {!isTimerEnded ? (
         <CountdownTimer releaseDate={capsule.releaseDate} onTimerEnd={handleTimerEnd} />
       ) : (
@@ -41,9 +49,17 @@ const CapsuleDetail = ({ capsule, refreshCapsules }) => {
       )}
 
       {isCapsuleOpened && (
-        <div className="mt-4 p-4 bg-gray-100 border rounded">
-          <p><strong>Contents:</strong> {capsule.contents}</p>
-          {/* Add more capsule content display here as needed */}
+        <div className="mt-4">
+          {/* Capsule animation here */}
+          <CapsuleAnimation onAnimationComplete={handleAnimationComplete} />
+
+          {/* Show contents once animation completes */}
+          {showContents && (
+            <div className="mt-4 p-4 bg-gray-100 border rounded">
+              <PolaroidMedia media={capsule} /> {/* Replace with real media contents */}
+              <GlowingButton onClick={() => setIsCapsuleOpened(false)} />
+            </div>
+          )}
         </div>
       )}
 
