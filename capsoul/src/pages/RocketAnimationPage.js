@@ -91,7 +91,7 @@ const RocketAnimationPage = () => {
         const delta = 40 * Math.sin(Math.PI * 2 * t);
   
         if (rocket) {
-          rocket.rotation.y += 0.1;
+          rocket.rotation.y += .05;
           rocket.position.y = delta;
         }
   
