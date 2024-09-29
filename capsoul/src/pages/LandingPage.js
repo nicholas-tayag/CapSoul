@@ -1,14 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Globe from '../components/globe/Globe';
+import StarField from '../components/StarField';
 import '../assets/styles/App.css'; // Ensure this path is correct
+
 
 const LandingPage = () => {
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen text-white overflow-hidden font-chakra">
-      {/* Globe Scene */}
+      {/* Globe Scene with StarField integrated */}
       <div className="absolute inset-0">
-        <Globe/>
+        <Globe />
       </div>
 
       {/* Content */}
