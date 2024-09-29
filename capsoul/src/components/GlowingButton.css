@@ -1,0 +1,15 @@
+/* Glowing button with hover animation */
+.glow-button {
+    background-color: #007bff;
+    font-family: 'Chakra Petch', sans-serif;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  
+  .glow-button:hover {
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.9);
+  }
+  
