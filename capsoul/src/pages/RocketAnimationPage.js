@@ -102,6 +102,9 @@ const RocketAnimationPage = () => {
       animate();
     }, []);
   
+
+      //update
+
     return (
       <div>
         <div id="rocket-animation" style={{ width: '100%', height: '100%' }}>

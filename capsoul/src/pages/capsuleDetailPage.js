@@ -21,6 +21,8 @@ const CapsuleDetailPage = () => {
     setSelectedImage(null);
   };
 
+
+  //update
   return (
     <div className="container mx-auto mt-8">
       {/* Title */}
@@ -67,6 +69,7 @@ const CapsuleDetailPage = () => {
           )}
         </div>
       </div>
+      
 
       {/* Back Button */}
       <button
