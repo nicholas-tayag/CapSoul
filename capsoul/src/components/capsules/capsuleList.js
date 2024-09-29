@@ -61,7 +61,7 @@ const CapsuleList = ({ capsules, selectedCapsule, onSelect, onDelete, onDeselect
               </Link>
             ) : (
               <>{selectedCapsule && selectedCapsule.id === capsule.id ? (
-                <div className="flex justify-between mt-2">
+                <div className="flex justify-center mt-2 space-x-2"> 
                   <button
                     onClick={() => onDeselect()}
                     className="px-3 py-1 bg-yellow-500 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-600 transition"
