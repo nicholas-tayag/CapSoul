@@ -7,6 +7,10 @@ body {
   perspective: 10rem;
 }
 
+.white-text {
+  color: white;
+}
+
 #canvas {
   position: absolute;
   width: 100%;
@@ -21,6 +25,8 @@ body {
   transform-origin: top center;
   transform: translate(-50%, 0) rotate3d(1, 0, 0, 60deg);
   width: 3.5rem;
+  margin-top: 14%;
+  
 }
 
 .fire {
