@@ -7,6 +7,7 @@ import { uploadFiles, addTimeCapsule, fetchTimeCapsules, deleteTimeCapsule } fro
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import StarField from '../components/StarField';
 
 const CapsulePage = () => {
   const [capsules, setCapsules] = useState([]);
@@ -69,13 +70,17 @@ const CapsulePage = () => {
 };
 
   return (
-    <div>
-      <Header />
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200 font-chakra">
-        <div className="bg-white p-8 rounded-lg shadow-lg text-center w-3/4">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">Your Time Capsules</h1>
-          <p className="text-gray-600 mb-8">View, create, and manage your time capsules.</p>
+    <div style={{ position: 'relative', overflow: 'hidden' }}>
+      <StarField /> {/* Star Field in the background */}
 
+      <div className="flex flex-col items-center justify-center min-h-screen font-chakra" style={{ position: 'relative', zIndex: 2 }}>
+        <div className="bg-white p-4 rounded-lg shadow-lg text-center w-1/2">
+        <h1 className="text-3xl font-bold text-gray-800 mb-4"> {/* Reduced font size */}
+            Your Time Capsules
+          </h1>
+          <p className="text-gray-400 mb-8"> {/* Reduced margin */}
+            View, create, and manage your time capsules.
+          </p>
           <CapsuleList 
             capsules={capsules} 
             selectedCapsule={selectedCapsule} 
@@ -96,7 +101,7 @@ const CapsulePage = () => {
             open={showForm}
             onClose={toggleForm}
             fullWidth
-            maxWidth="md"
+            maxWidth="sm"
           >
             <DialogTitle>Create New Time Capsule</DialogTitle>
             <DialogContent>
