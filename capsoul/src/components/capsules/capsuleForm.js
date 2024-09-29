@@ -27,6 +27,8 @@ const CapsuleForm = ({ onSubmit, onCancel }) => {
     }
   };
 
+  //update
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
