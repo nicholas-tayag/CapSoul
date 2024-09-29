@@ -3,11 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';  // Import useNavigate for
 import Header from '../components/Header/Header';
 import CapsuleForm from '../components/capsules/capsuleForm';
 import CapsuleList from '../components/capsules/capsuleList';
-import { fetchTimeCapsules, deleteTimeCapsule } from '../components/capsules/capsuleServices';
+import { uploadFiles, addTimeCapsule, fetchTimeCapsules, deleteTimeCapsule } from '../components/capsules/capsuleServices';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
+
 
 const CapsulePage = () => {
   const [capsules, setCapsules] = useState([]);
@@ -49,14 +50,41 @@ const CapsulePage = () => {
     setSelectedCapsule(null);  // Deselect capsule when toggling form
   };
 
-  // Handle form submission and pass the date to the next route
-  const handleFormSubmit = (releaseDate) => {
-    const currentTime = new Date();  // Get the current time
-    const releaseTime = new Date(releaseDate);  // Convert releaseDate to Date object
-    const timeRemaining = Math.floor((releaseTime - currentTime) / 1000);  // Calculate time in seconds
+  const handleFormSubmit = async (capsuleData) => {
+    try {
+        console.log('Submitting capsule form...', capsuleData);
 
-    toggleForm();  // Close the form
-    navigate('/rocket-animation', { state: { timeRemaining, releaseDate } });  // Pass timeRemaining to the next route
+        // Ensure images and videos are arrays (even if empty)
+        const images = capsuleData.images || []; // Use empty array if undefined
+        const videos = capsuleData.videos || []; // Use empty array if undefined
+
+        // Upload images and videos
+        const imageUrls = await uploadFiles(images, 'images');
+        const videoUrls = await uploadFiles(videos, 'videos');
+
+        console.log('Uploads complete:', { imageUrls, videoUrls });
+
+        // Create the capsule with uploaded file URLs
+        const newCapsule = {
+            ...capsuleData,
+            images: imageUrls,
+            videos: videoUrls,
+        };
+
+        console.log('Adding new capsule:', newCapsule);
+
+        await addTimeCapsule(newCapsule);
+        handleFetchCapsules(); // Refresh the capsules list
+        setShowForm(false); // Close the form
+        console.log('Navigating to rocket animation page...');
+        
+        const currentTime = new Date();  // Get the current time
+        const releaseTime = new Date(releaseDate);  // Convert releaseDate to Date object
+        const timeRemaining = Math.floor((releaseTime - currentTime) / 1000);  // Calculate time in seconds
+        navigate('/rocket-animation', { state: { timeRemaining, releaseDate } });
+    } catch (error) {
+        console.error('Error creating capsule:', error);
+    }
 };
 
   return (
