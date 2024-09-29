@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CapsuleImage from './capsuleImage';
 import CountdownTimer from './countdownTimer';
+import { Link } from 'react-router-dom';
 
 const CapsuleList = ({ capsules, selectedCapsule, onSelect, onDelete, onDeselect }) => {
   const [timersEnded, setTimersEnded] = useState({});
@@ -42,12 +43,11 @@ const CapsuleList = ({ capsules, selectedCapsule, onSelect, onDelete, onDeselect
               <CountdownTimer releaseDate={capsule.releaseDate} onTimerEnd={() => handleTimerEnd(capsule.id)} />
             </p>
             {timersEnded[capsule.id] ? (
-              <button
-                onClick={() => alert('Open Capsule functionality will be implemented here.')}
-                className="px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition mt-2"
-              >
+              <Link to={`/capsules/${capsule.id}`} state={{ capsule }}>
+              <button className="px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition mt-2">
                 Open Capsule
               </button>
+            </Link>
             ) : (
               <>
                 {selectedCapsule && selectedCapsule.id === capsule.id ? (

@@ -5,21 +5,48 @@
 .font-chakra {
   font-family: 'Chakra Petch', sans-serif;
 }
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* Ensure no scrollbars appear */
+}
+
+/* General App Container */
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* StarField Background */
+.starfield {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Globe Layer */
+.globe {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* Content Layer */
+.content {
+  position: relative;
+  z-index: 20;
+  text-align: center;
+  padding: 2rem;
+  color: white;
+}
+
+/* Standard Header Styles */
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -31,8 +58,16 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* Animation for Rotating Logo */
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
 }
 
 @keyframes App-logo-spin {
@@ -44,3 +79,7 @@
   }
 }
 
+/* Links */
+.App-link {
+  color: #61dafb;
+}
