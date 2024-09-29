@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Globe from '../components/globe/Globe';
-import StarField from '../components/StarField';
+
 import '../assets/styles/App.css'; // Ensure this path is correct
 
 
