@@ -90,7 +90,7 @@ const CapsulePage = () => {
   return (
     <div>
       <Header />
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200 font-chakra">
         <div className="bg-white p-8 rounded-lg shadow-lg text-center w-3/4">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">Your Time Capsules</h1>
           <p className="text-gray-600 mb-8">View, create, and manage your time capsules.</p>
