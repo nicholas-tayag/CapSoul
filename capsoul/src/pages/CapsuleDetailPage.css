@@ -1,140 +1,139 @@
 /* General page styling */
 .capsule-detail-page {
-    position: relative;
-    overflow: hidden;
-    min-height: 100vh;
-    background: rgba(0, 0, 0, 0.4); /* Dark background with opacity */
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Allow scroll */
-    padding: 2rem;
-    overflow-y: auto; /* Allow scrolling */
-    font-family: 'Chakra Petch', sans-serif;
-  }
-  
-  /* Capsule content container */
-  .content-container {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    padding: 1rem; /* Smaller padding */
-    border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-    max-width: 600px; /* Reduced width */
-    width: 100%;
-    max-height: 80vh; /* Limit height to allow scrolling */
-    overflow: auto; /* Enable scroll within container */
-  }
-  
-  /* Title and description */
-  .capsule-title {
-    font-size: 2rem; /* Smaller title */
-    font-family: 'Chakra Petch', sans-serif;
-    color: #f9f9f9;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-  
-  .capsule-description {
-    font-size: 1rem; /* Smaller description */
-    color: #d1d1d1;
-    text-align: center;
-  }
-  
-  .capsule-time-in-flight {
-    font-size: 0.9rem; /* Smaller text */
-    color: #aaa;
-    text-align: center;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-  }
-  
-  /* Media section (photos, videos) */
-  .media-section {
-    margin-bottom: 1.5rem; /* Reduced spacing */
-  }
-  
-  .media-title {
-    font-size: 1.25rem; /* Smaller media section title */
-    font-weight: bold;
-    margin-bottom: 1rem;
-    color: #f1f1f1;
-  }
-  
-  .media-grid {
-    display: grid;
-    gap: 0.75rem; /* Smaller gap between media */
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Smaller columns */
-  }
-  
-  .media-item, .media-video {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  }
-  
-  .media-image {
-    width: 100%;
-    height: 150px; /* Smaller image height */
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-  
-  .media-item:hover .media-image {
-    transform: scale(1.05);
-  }
-  
-  /* Modal styling */
-  .modal-background {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.75);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-  }
-  
-  .modal-content {
-    position: relative;
-    max-width: 80%; /* Reduced modal width */
-    max-height: 80%;
-    border-radius: 10px;
-    background: #fff;
-    padding: 1rem;
-  }
-  
-  .modal-image {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-  }
-  
-  .close-modal {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 2rem;
-    color: #fff;
-    cursor: pointer;
-  }
-  
-  /* Close button */
-  .close-button {
-    margin-top: 1.5rem; /* Reduced margin */
-    background: rgba(255, 255, 255, 0.1);
-    padding: 0.5rem 1.5rem; /* Smaller button */
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    color: #fff;
-    transition: background 0.3s ease;
-  }
-  
-  .close-button:hover {
-    background: rgba(255, 255, 255, 0.3);
-  }
-  
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  background: rgba(0, 0, 0, 0.4); /* Dark background with opacity */
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Allow scroll */
+  padding: 2rem;
+  overflow-y: auto; /* Allow scrolling */
+  font-family: 'Chakra Petch', sans-serif;
+}
+
+/* Capsule content container */
+.content-container {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 1rem; /* Smaller padding */
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+  max-width: 600px; /* Reduced width */
+  width: 100%;
+  max-height: 80vh; /* Limit height to allow scrolling */
+  overflow: auto; /* Enable scroll within container */
+}
+
+/* Title and description */
+.capsule-title {
+  font-size: 2rem; /* Smaller title */
+  font-family: 'Chakra Petch', sans-serif;
+  color: #f9f9f9;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.capsule-description {
+  font-size: 1rem; /* Smaller description */
+  color: #d1d1d1;
+  text-align: center;
+}
+
+.capsule-time-in-flight {
+  font-size: 0.9rem; /* Smaller text */
+  color: #aaa;
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Media section (photos, videos) */
+.media-section {
+  margin-bottom: 1.5rem; /* Reduced spacing */
+}
+
+.media-title {
+  font-size: 1.25rem; /* Smaller media section title */
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #f1f1f1;
+}
+
+.media-grid {
+  display: grid;
+  gap: 0.75rem; /* Smaller gap between media */
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Smaller columns */
+}
+
+.media-item, .media-video {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.media-image {
+  width: 100%;
+  height: 150px; /* Smaller image height */
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.media-item:hover .media-image {
+  transform: scale(1.05);
+}
+
+/* Modal styling */
+.modal-background {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 80%; /* Reduced modal width */
+  max-height: 80%;
+  border-radius: 10px;
+  background: #fff;
+  padding: 1rem;
+}
+
+.modal-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Close button */
+.close-button {
+  margin-top: 1.5rem; /* Reduced margin */
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1.5rem; /* Smaller button */
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  color: #fff;
+  transition: background 0.3s ease;
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
