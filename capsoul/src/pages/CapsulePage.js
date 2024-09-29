@@ -18,7 +18,12 @@ const CapsulePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    handleFetchCapsules();
+    const loadCapsules = async () => {
+      const capsulesData = await fetchTimeCapsules();
+      setCapsules(capsulesData);
+    };
+    
+    loadCapsules();
   }, []);
 
   const handleFetchCapsules = async () => {
