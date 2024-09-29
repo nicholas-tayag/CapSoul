@@ -3,7 +3,7 @@ body {
   margin: 0;
   height: 100%;
   background: #1a032b;
-  overflow: auto;
+  overflow: hidden;
   perspective: 10rem;
 }
 
@@ -21,11 +21,11 @@ body {
 .fire-wrapper {
   left: 50%;
   position: absolute;
-  top: 50%;
+  top: 35%;
   transform-origin: top center;
   transform: translate(-50%, 0) rotate3d(1, 0, 0, 60deg);
-  width: 3.5rem;
-  margin-top: 14%;
+  width: 10rem;
+  margin-top: 20%;
   
 }
 
@@ -36,7 +36,7 @@ body {
 
 @keyframes whoosh {
   from {
-    transform: translateY(-25%);
+    transform: translateY(-10%);
   }
   to {
     transform: translateY(0);

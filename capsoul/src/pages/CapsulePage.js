@@ -7,6 +7,7 @@ import { uploadFiles, addTimeCapsule, fetchTimeCapsules, deleteTimeCapsule } fro
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import StarField from '../components/StarField';
 
 const CapsulePage = () => {
   const [capsules, setCapsules] = useState([]);
@@ -68,14 +69,28 @@ const CapsulePage = () => {
     }
 };
 
-  return (
-    <div>
-      <Header />
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200 font-chakra">
-        <div className="bg-white p-8 rounded-lg shadow-lg text-center w-3/4">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">Your Time Capsules</h1>
-          <p className="text-gray-600 mb-8">View, create, and manage your time capsules.</p>
+  // For Testing Rocket Animations
+  // const handleTestAnimation = () => {
+  //   // Example: Simulate a test release time of 10 seconds remaining
+  //   const timeRemaining = 10;  // 10 seconds
+  //   const releaseDate = new Date();  // Set a dummy release date
 
+  //   // Navigate to the animation page with simulated data
+  //   navigate('/rocket-animation', { state: { timeRemaining, releaseDate: releaseDate.toISOString() } });
+  // };
+
+  return (
+    <div style={{ position: 'relative', overflow: 'hidden' }}>
+      <StarField /> {/* Star Field in the background */}
+
+      <div className="flex flex-col items-center justify-center min-h-screen font-chakra" style={{ position: 'relative', zIndex: 2 }}>
+        <div className="bg-white p-4 rounded-lg shadow-lg text-center w-1/2">
+        <h1 className="text-3xl font-bold text-gray-800 mb-4"> {/* Reduced font size */}
+            Your Time Capsules
+          </h1>
+          <p className="text-gray-400 mb-8"> {/* Reduced margin */}
+            View, create, and manage your time capsules.
+          </p>
           <CapsuleList 
             capsules={capsules} 
             selectedCapsule={selectedCapsule} 
@@ -91,12 +106,20 @@ const CapsulePage = () => {
             {showForm ? "Cancel" : "Create New Capsule"}
           </button>
 
+           {/* Add a button for testing the animation
+           <button
+            onClick={handleTestAnimation}
+            className="mt-4 px-6 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition"
+          >
+            Test Rocket Animation
+          </button> */}
+
           {/* Dialog for the form */}
           <Dialog
             open={showForm}
             onClose={toggleForm}
             fullWidth
-            maxWidth="md"
+            maxWidth="sm"
           >
             <DialogTitle>Create New Time Capsule</DialogTitle>
             <DialogContent>

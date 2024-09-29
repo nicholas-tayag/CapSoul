@@ -9,7 +9,12 @@ const StarField = () => {
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.domElement.style.position = 'absolute'; // Make it fill the screen
+    renderer.domElement.style.top = '0';
+    renderer.domElement.style.left = '0';
+    renderer.domElement.style.zIndex = '-1'; // Place the star field behind other elements
     document.body.appendChild(renderer.domElement);
+
 
     // Star Field
     const stars = new Array(10000).fill().map(() => {
