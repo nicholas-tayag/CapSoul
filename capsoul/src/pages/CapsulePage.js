@@ -18,7 +18,12 @@ const CapsulePage = () => {
   const navigate = useNavigate(); // Initialize the useNavigate hook
 
   useEffect(() => {
-    handleFetchCapsules();
+    const loadCapsules = async () => {
+      const capsulesData = await fetchTimeCapsules();
+      setCapsules(capsulesData);
+    };
+    
+    loadCapsules();
   }, []);
 
   const handleFetchCapsules = async () => {
